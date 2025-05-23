@@ -30,7 +30,7 @@ Smithers, on `r fpr_my_pscis_info(col_pull = road_name)`. This crossing is locat
 
 ## Background {.unnumbered}
 
-At crossing `r as.character(my_site)`, `r fpr::fpr_my_pscis_info()` is a
+At the location of PSCIS crossing `r as.character(my_site)`, `r fpr::fpr_my_pscis_info()` is a
 `r fpr::fpr_my_bcfishpass() %>% english::ordinal()` order stream with a
 watershed area upstream of the crossing of approximately
 `r fpr::fpr_my_wshd()`km^2^. The elevation of the watershed ranges from
@@ -58,19 +58,27 @@ fpr::fpr_table_wshd_sum(site_id = my_site) %>%
 
 @tritonenvironmentalconsultantsltd.1998 conducted a reconnaissance
 level fish and fish habitat inventory on Sandstone Creek. In 1996, they conducted fish sampling at two sites located downstream of crossing `r as.character(my_site)` and caught cutthroat trout.
-In 1997, Rainbow trout were caught by electrofishing upstream of Sandstone Lake and cutthroat trout
+In 1997, rainbow trout were caught by electrofishing upstream of Sandstone Lake and cutthroat trout
 were caught by electrofishing in a tributary located approximately 800m upstream of
 crossing `r as.character(my_site)`. At that time, Sandstone Creek was generally a low gradient stream with areas of moderate confinement. Upstream of Sandstone Lake, the stream flows for approximately 2.5km through an area of fisheries sensitive wetlands before draining a small unnamed lake.
 
 <br>
 
-PSCIS stream crossing `r as.character(my_site)` was ranked as a high
+PSCIS crossing `r as.character(my_site)` was ranked as a high
 priority for follow up by the Society for Ecosystem Restoration in
 Northern BC because of significant amounts of habitat modelled upstream
 of the crossing. @viveiros2011 assessed crossing
 `r as.character(my_site)` in 2010. At the time of survey, it was
 recommended that the material in the pipe be embedded to reduce
-water velocity. A summary of habitat modelling outputs is presented in
+water velocity. 
+
+<br>
+
+In 2022, the crossing was reassessed and a habitat confirmation assessment was completed, which formed the basis for this memo. In 2024, crews revisited the site for baseline monitoring, including fish sampling with PIT tagging, and aerial surveys. This memo has been updated to incorporate the 2024 field work.
+
+<br>
+
+A summary of habitat modelling outputs is presented in
 Table \@ref(tab:tab-culvert-bcfp-8530). A map of the watershed is
 provided in map attachment
 [`r fpr::fpr_my_bcfishpass(col_pull = dbm_mof_50k_grid)`](`r fpr::fpr_my_mapsheet(wshd = "zymo", archive_date = "2022-09-06")`).
@@ -151,11 +159,55 @@ moderate rearing potential.
 
 ## Fish Sampling {.unnumbered}
 
-Electrofishing was conducted with results summarised in Tables
+In 2022, electrofishing was conducted at three sites downstream and three sites upstream of McDonell FSR, with results summarised in Tables
 \@ref(tab:tab-fish-site-8530) - \@ref(tab:tab-fish-dens-8530) and Figure
-\@ref(fig:plot-fish-box-8530). Dolly varden and cutthroat trout were caught both downstream and upstream of the culvert, while rainbow trout were only caught upstream `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-8530-07) - \\@ref(fig:photo-8530-08)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-8530-u01))."))` There was some uncertainty as to whether some fish were hybrids of rainbowe and ctthrout.  Fish over 60mm in length were tagged with passive integrated transponders with tag ID and asssociated data located [here](https://github.com/NewGraphEnvironment/fish_passage_skeena_2022_reporting/raw/main/data/habitat_confirmations.xls). 
+\@ref(fig:plot-fish-box-8530). Dolly varden and cutthroat trout were caught both downstream and upstream of the culvert, while rainbow trout were only caught upstream `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-8530-07) - \\@ref(fig:photo-8530-08)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-8530-u01))."))` There was some uncertainty as to whether some fish were hybrids of rainbow and cutthroat trout. Fish over 60mm in length were tagged with passive integrated transponders with tag ID and associated data located [here](https://github.com/NewGraphEnvironment/fish_passage_skeena_2022_reporting/raw/main/data/habitat_confirmations.xls). 
 
 <br>
+
+In 2024, electrofishing was conducted at one site downstream and one site upstream of McDonell FSR. No PIT tags were detected in the fish captured, indicating that none of the individuals tagged in 2022 were recaptured. Electrofishing results are summarised in Tables \@ref(tab:tab-fish-site-8530-2024) – \@ref(tab:tab-fish-dens-8530-2024) and Figure \@ref(fig:plot-fish-box-8530-2024). A total of `r tab_fish_summary_2024 %>% filter(site_id == paste0(my_site, '_ds')) %>% group_by(site_id) %>% janitor::adorn_totals() %>% filter(site_id == 'Total') %>% pull(count_fish)` fish were captured downstream, including rainbow trout and Dolly Varden, and `r tab_fish_summary_2024 %>% filter(site_id == paste0(my_site, '_us')) %>% group_by(site_id) %>% janitor::adorn_totals() %>% filter(site_id == 'Total') %>% pull(count_fish)` were captured upstream, consisting of rainbow trout, cutthroat trout, cutthroat trout/rainbow trout hybrids and Dolly Varden `r if(gitbook_on){knitr::asis_output("(Figures \\@ref(fig:photo-8530-09) - \\@ref(fig:photo-8530-10)).")}else(knitr::asis_output("(Figure \\@ref(fig:photo-8530-d04))"))`. All fish captured with a fork length greater than 60mm were tagged with PIT tags, with data stored [here](`r paste0(params$repo_url, "blob/main/data/2024_fish_data_tags_joined.csv")`).
+
+```{r eval=F}
+# species captured downstream
+tab_fish_summary_2024 |> 
+  dplyr::filter(site_id == paste0(my_site, '_ds')) |> 
+  dplyr::group_by(site_id) |> 
+  dplyr::distinct(species) |> 
+  dplyr::pull(species)
+
+# species captured upstream
+tab_fish_summary_2024 |> 
+  dplyr::filter(site_id == paste0(my_site, '_us')) |> 
+  dplyr::group_by(site_id) |> 
+  dplyr::distinct(species) |> 
+  dplyr::pull(species)
+
+```
+
+<br>
+
+## Aerial Imagery {.unnumbered}
+
+In 2024, an aerial survey was conducted with a remotely piloted aircraft and the resulting imagery was processed into an orthomosaic available to view and download `r if(gitbook_on){knitr::asis_output("in Figure \\@ref(fig:uav-ortho-8530)")}else(knitr::asis_output("[here](https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/skeena/zymoetz/2024/8530_sandstone_mcdonell/odm_orthophoto/odm_orthophoto.tif)"))`.
+
+<br>
+
+```{r uav-ortho-8530-prep, eval = gitbook_on}
+viewer_url <- '<iframe src="https://viewer.a11s.one/?cog=https://imagery-uav-bc.s3.amazonaws.com/skeena/zymoetz/2024/8530_sandstone_mcdonell/odm_orthophoto/odm_orthophoto.tif" scrolling="no" title="UAV Viewer" width="100%" height="600" frameBorder="0"></iframe>'
+
+knitr::asis_output(viewer_url)
+```
+
+```{r uav-ortho-8530, out.width = "0.01%", eval = gitbook_on, fig.cap= my_caption}
+my_photo = 'fig/pixel.png'
+
+my_caption = paste0('Orthomosaic of PSCIS crossing ', my_site, '.')
+
+knitr::include_graphics(my_photo, dpi = NA)
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")}`
+
 
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
@@ -167,23 +219,17 @@ Should restoration/maintenance activities proceed, replacement of PSCIS crossing
 
 ## Conclusion {.unnumbered}
 
-There was
-`r fpr::fpr_my_priority_info(col_pull= upstream_habitat_length_km)`km of
-habitat modelled upstream of crossing `r as.character(my_site)` modelled as potential steelhead rearing habitat with
-areas surveyed rated as
-`r fpr::fpr_my_priority_info(sit = my_site, loc = 'us', col_pull = hab_value)`
-value for salmonid rearing and spawning. Additionally, Sandstone Lake upstream provides habitat and flow moderating values to the sytem.  Crossing
-`r as.character(my_site)` was ranked as a
-`r fpr::fpr_my_priority_info(col_pull = priority)` priority for
-proceeding to design for replacement. Sandstone Creek is a large system
-with habitat suitable for numerous species including cutthroat and dolly
-varden. Although habitat has modeled as suitable for steelhead and coho, presence of anadromous species was not confirmed through sampling. Nevertheless, replacement the crossing with a bridge
-would eliminate the outlet drop and reduce flow
-velocities at the road crossing.
+Sandstone Creek is a large system with habitat suitable for numerous species including documented cutthroat trout and Dolly
+Varden. Additionally, Sandstone Lake upstream provides habitat and flow moderating values to the system. There is `r fpr::fpr_my_priority_info(col_pull = upstream_habitat_length_km)`km of habitat modelled upstream of crossing `r as.character(my_site)`, identified as potential steelhead rearing habitat, with surveyed areas rated as `r fpr::fpr_my_priority_info(sit = my_site, loc = 'us', col_pull = hab_value)` value for salmonid spawning and rearing. However, no anadromous fish were captured during fish sampling in either 2022 or 2024. Nevertheless, replacement the crossing with a bridge would eliminate the outlet drop and reduce flow velocities at the road crossing, and the crossing is ranked as a `r fpr::fpr_my_priority_info(col_pull = priority)` priority for
+proceeding to design for replacement. 
+
+<br>
+
+Continued fish sampling and PIT tagging will help build understanding of fish movement and health at the site, contributing to long-term effectiveness monitoring. Additionally, aerial imagery and 3D models can be used to track changes in stream morphology and assess the effectiveness of environmental management plans and site rehabilitation following construction.
+
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
-<br>
 
 ```{r tab-habitat-summary-8530}
 tab_hab_summary %>% 
@@ -196,24 +242,86 @@ tab_hab_summary %>%
 <br>
 
 ```{r tab-fish-site-8530, eval=T}
-fpr_table_fish_site()
+
+# Run manually so we can add date into the table caption. 
+# fpr_table_fish_site()
+
+tab_fish_sites_sum %>%
+    tidyr::separate(site, into = c('site_id', 'location', 'ef'), remove = F) %>%
+    dplyr::filter(site_id == my_site) %>%
+    dplyr::select(site, passes, ef_length_m, ef_width_m, area_m2, enclosure) %>%
+    fpr_kable(caption_text = paste0('Fish sampling site summary for PSCIS crossing ', my_site, ' in 2022.'), scroll = F)
+
 
 ```
 
 <br>
 
 ```{r tab-fish-dens-8530, eval=T}
-fpr_table_fish_density()
+# Run manually so we can add date into the table caption. 
+# fpr_table_fish_density()
+
+fish_abund %>%
+    dplyr::filter(site == my_site) %>%
+    dplyr::select(
+      local_name,
+      species_code,
+      life_stage,
+      catch,
+      density_100m2,
+      nfc_pass) %>%
+    fpr_kable(caption_text = paste0('Fish sampling density results summary for PSCIS crossing ', my_site, ' in 2022.'),
+              footnote_text = 'nfc_pass FALSE means fish were captured in final pass indicating more fish of this species/lifestage may have remained in site.
+              Mark-recaptured required to reduce uncertainties.',
+              scroll = F)
 
 ```
 
 `r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
 
 ```{r plot-fish-box-8530, fig.cap= my_caption, eval=T}
-my_caption <- paste0('Densites of fish (fish/100m2) captured upstream of PSCIS crossing ', my_site, '.')
+my_caption <- paste0('Densites of fish (fish/100m2) captured upstream of PSCIS crossing ', my_site, ' in 2022.')
 
 fpr_plot_fish_box() 
 
+```
+
+<br>
+
+```{r tab-fish-site-8530-2024, eval=T}
+
+tab_fish_sites_sum_2024 %>% 
+  tidyr::separate(site, into = c("site_id", "location", 
+        "ef"), remove = F) |>
+  dplyr::filter(site_id == my_site) |>
+  dplyr::select(site, passes, ef_length_m, ef_width_m, 
+            area_m2, enclosure) |>
+  fpr::fpr_kable(caption_text = paste0("Fish sampling site summary for ", 
+        my_site, " in 2024."), scroll = F)
+
+```
+
+<br>
+
+```{r tab-fish-dens-8530-2024, eval=T}
+
+fish_abund_2024|>
+  dplyr::filter(site == my_site) |>
+  dplyr::select(local_name, species_code, life_stage, catch, density_100m2, nfc_pass) |>
+  fpr::fpr_kable(caption_text = paste0("Fish sampling density results summary for ", 
+            my_site, " in 2024."), 
+            footnote_text = "nfc_pass FALSE means fish were captured in final pass indicating more fish of this species/lifestage may have remained in site.\n              Mark-recaptured required to reduce uncertainties.", 
+            scroll = F)
+
+```
+
+`r if(gitbook_on){knitr::asis_output("<br>")} else knitr::asis_output("\\pagebreak")`
+
+```{r plot-fish-box-8530-2024, fig.cap= my_caption, eval=T}
+
+my_caption <- paste0('Densites of fish (fish/100m2) captured upstream and downstream of PSCIS crossing ', my_site, ' in 2024.')
+
+fpr::fpr_plot_fish_box(dat = fish_abund_2024) 
 ```
 
 <br>
@@ -243,8 +351,6 @@ grid::grid.raster(jpeg::readJPEG(my_photo2))
 
 ```
 
-<br>
-
 ```{r photo-8530-d01, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
 
 my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
@@ -253,6 +359,8 @@ knitr::include_graphics(my_photo1)
 knitr::include_graphics("fig/pixel.png")
 knitr::include_graphics(my_photo2)
 ```
+
+<br>
 
 ```{r photo-8530-03-prep}
 my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = '_u1_')
@@ -285,6 +393,8 @@ knitr::include_graphics(my_photo1)
 knitr::include_graphics("fig/pixel.png")
 knitr::include_graphics(my_photo2)
 ```
+
+<br>
 
 ```{r photo-8530-05-prep}
 my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = '_u3_')
@@ -323,7 +433,7 @@ knitr::include_graphics(my_photo2)
 ```{r photo-8530-07-prep}
 my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = '_ef1_')
 
-my_caption1 = paste0('Dolly Varden captured upstream of PSCIS crossing ', my_site, '.')
+my_caption1 = paste0('Dolly Varden captured upstream of PSCIS crossing ', my_site, ' in 2022.')
 ```
 
 ```{r photo-8530-07, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
@@ -335,7 +445,7 @@ grid::grid.raster(jpeg::readJPEG(my_photo1))
 ```{r photo-8530-08-prep}
 my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = '_ef2_')
 
-my_caption2 = paste0('Cutthroat trout captured downstream of PSCIS crossing ', my_site, '.')
+my_caption2 = paste0('Cutthroat trout captured downstream of PSCIS crossing ', my_site, ' in 2022.')
 
 ```
 
@@ -344,6 +454,40 @@ grid::grid.raster(jpeg::readJPEG(my_photo2))
 ```
 
 ```{r photo-8530-u01, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
+
+my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
+
+knitr::include_graphics(my_photo1)
+knitr::include_graphics("fig/pixel.png")
+knitr::include_graphics(my_photo2)
+```
+
+<br>
+
+```{r photo-8530-09-prep}
+my_photo1 = fpr::fpr_photo_pull_by_str(str_to_pull = 'fish3_')
+
+my_caption1 = paste0('Rainbow trout captured downstream of PSCIS crossing ', my_site, ' in 2024.')
+```
+
+```{r photo-8530-09, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+grid::grid.raster(jpeg::readJPEG(my_photo1))
+```
+
+<br>
+
+```{r photo-8530-10-prep}
+my_photo2 = fpr::fpr_photo_pull_by_str(str_to_pull = 'fish4')
+
+my_caption2 = paste0('Rainbow trout captured upstream of PSCIS crossing ', my_site, ' in 2024.')
+
+```
+
+```{r photo-8530-10, fig.cap= my_caption2, out.width = photo_width, eval=gitbook_on}
+grid::grid.raster(jpeg::readJPEG(my_photo2))
+```
+
+```{r photo-8530-d04, fig.cap = my_caption, fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=identical(gitbook_on, FALSE)}
 
 my_caption <- paste0('Left: ', my_caption1, ' Right: ', my_caption2)
 
