@@ -75,7 +75,7 @@ font_set <- 9
 
 ```{r ld-pkgs}
 source('scripts/packages.R')
-source('scripts/tables_2023.R')
+source('scripts/tables_2023_onward.R')
 source('scripts/tables.R')
 source('scripts/moti_climate.R')
 source('scripts/functions.R')
