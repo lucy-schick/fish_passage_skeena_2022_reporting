@@ -269,7 +269,63 @@ tab_fish_sites_sum_2023 <- tab_fish_sites_sum
 
 # 2024 data --------------------------------------------------------------
 
-### Load form_fiss_site_2024 --------------------------
+## Monitoring --------------------------------------------------------------
+
+### Load form_monitoring_2024  --------------------------------------------------------------
+
+# Only run first time or if we have updated the form
+# path_form_monitoring_2024 <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_monitoring_2024.gpkg"))
+#
+# form_monitoring_2024 <- fpr::fpr_sp_gpkg_backup(
+#     path_gpkg = path_form_monitoring_2024,
+#     dir_backup = "data/backup/",
+#     update_utm = TRUE,
+#     update_site_id = TRUE,
+#     write_back_to_path = FALSE,
+#     return_object = TRUE,
+#     write_to_csv = FALSE,
+#     write_to_rdata = FALSE,
+#     col_easting = "utm_easting",
+#     col_northing = "utm_northing")
+#
+#
+#   # Now burn to the sqlite
+#   conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+#   # won't run on first build if the table doesn't exist
+#   readwritesqlite::rws_drop_table("form_monitoring_2024", conn = conn)
+#   readwritesqlite::rws_write(form_monitoring_2024, exists = F, delete = TRUE,
+#                              conn = conn, x_name = "form_monitoring_2024")
+#   readwritesqlite::rws_disconnect(conn)
+
+### Read form_monitoring_2024 --------------------------
+conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+form_monitoring_2024 <- readwritesqlite::rws_read_table("form_monitoring_2024", conn = conn)
+readwritesqlite::rws_disconnect(conn)
+
+
+### Clean form_monitoring_2024 --------------------------
+
+# clean up the monitoring form so we can display it in a table
+tab_monitoring <- form_monitoring_2024 |>
+  sf::st_drop_geometry() |>
+  dplyr::select(
+    pscis_crossing_id,
+    stream_name,
+    road_name,
+    crossing_subtype,
+    `span` = diameter_or_span_meters,
+    `width` = length_or_width_meters,
+    assessment_comment,
+    dplyr::matches("_notes$"),
+    -condition_notes,
+    -climate_notes,
+    -priority_notes
+  ) |>
+  janitor::clean_names(case = "title")
+
+
+
+## Load form_fiss_site_2024 --------------------------
 conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
 form_fiss_site_2024 <- readwritesqlite::rws_read_table("form_fiss_site_2024", conn = conn)
 readwritesqlite::rws_disconnect(conn)
@@ -279,7 +335,7 @@ readwritesqlite::rws_disconnect(conn)
 
 # gis_project_name <- "sern_skeena_2023"
 #
-# path_form_fiss_site_2024 <- fs::path_expand(fs::path("~/Projects/gis/", gis_project_name, "/data_field/2024/form_fiss_site_2024.gpkg"))
+# path_form_fiss_site_2024 <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_fiss_site_2024.gpkg"))
 #
 #
 #   form_fiss_site_2024 <- fpr::fpr_sp_gpkg_backup(
