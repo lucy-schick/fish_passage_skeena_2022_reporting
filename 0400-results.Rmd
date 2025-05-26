@@ -230,7 +230,7 @@ fpr::fpr_table_wshd_sum() %>%
 
 <br>
 
-```{r plot-model-all, fig.cap='Summary of potential habitat upstream of habitat confirmation assessment sites estimated based on modelled channel width and upstream channel length.', eval=T}
+```{r plot-model-all, fig.cap='Summary of potential habitat upstream of habitat confirmation assessment sites estimated based on modelled channel width and upstream channel length.', echo = FALSE, eval=T}
 
 
 bcfp_xref_plot <- xref_bcfishpass_names %>% 
@@ -265,9 +265,9 @@ bcfishpass_phase2_plot_prep <- bcfishpass %>%
   ggplot(aes(x = stream_crossing_id, y = value)) +
   geom_bar(stat = "identity")+
   facet_wrap(~name, ncol = 2)+
-  ggdark::dark_theme_bw(base_size = 11)+
-   theme(axis.text.x=element_text(angle=90, hjust=1, vjust=0.5)) +
-  labs(x = "Site", y = "Modelled habitat (km)")
+  labs(x = "Site", y = "Modelled habitat (km)") +
+  ggplot2::theme_bw(base_size = 11) +
+  theme(axis.text.x=element_text(angle=45, hjust=1))
 
 
 ```
@@ -279,8 +279,28 @@ Fish sampling was conducted at `r tab_fish_sites_sum %>% n_distinct()` sites wit
 
 <br>
 
-```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing during habitat confirmation assessments.', eval = T}
-knitr::include_graphics("fig/fish_histogram.png")
+```{r fish-histogram, fig.cap= 'Histograms of fish lengths by species.  Fish captured by electrofishing and minnow trapping during habitat confirmation assessments.', eval = T}
+
+bin_1 <- floor(min(hab_fish_indiv$length_mm, na.rm = TRUE) / 5) * 5
+bin_n <- ceiling(max(hab_fish_indiv$length_mm, na.rm = TRUE) / 5) * 5
+bins <- seq(bin_1, bin_n, by = 5)
+
+# Check what species we have and filter out any we don't want, took out the unidentifiable trout (only 1 documented) so we have an even number of facets
+# fish_data_complete |> dplyr::distinct(species)
+
+plot_fish_hist <- ggplot2::ggplot(
+  hab_fish_indiv |> dplyr::filter(!species_code %in% c('LSU','SU','NFC', 'TR')) |> 
+                    dplyr::mutate(Species = fishbc::fbc_common_name(as.character(species_code))),
+  ggplot2::aes(x = length_mm)) +
+  ggplot2::geom_histogram(breaks = bins, alpha = 0.75,
+                          position = "identity", size = 0.75) +
+  ggplot2::labs(x = "Fork Length (mm)", y = "Count (#)") +
+  ggplot2::facet_wrap(~Species) +
+  ggplot2::theme_bw(base_size = 8) +
+  ggplot2::scale_x_continuous(breaks = bins[seq(1, length(bins), by = 2)]) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
+
+plot_fish_hist
 
 ```
 
@@ -297,22 +317,23 @@ tab_fish_sites_sum %>%
 <br>
 
 ```{r plot-fish-all, fig.cap='Boxplots of densities (fish/100m2) of fish captured by electrofishing during habitat confirmation assessments.', eval=T}
-plot_fish_box_all <-  fish_abund %>% #tab_fish_density_prep
+
+plot_fish_box_all <-  fish_abund |>  #tab_fish_density_prep
     filter(
       !species_code %in% c('MW', 'SU', 'NFC', 'CT', 'LSU')
-    ) %>%
-    ggplot(., aes(x = location, y =density_100m2)) +
-    geom_boxplot()+
-    facet_grid(site ~ species_code, scales ="fixed", #life_stage
-               as.table = T)+
-    # theme_bw()+
-    theme(legend.position = "none", axis.title.x=element_blank()) +
-    geom_dotplot(binaxis='y', stackdir='center', dotsize=1)+
-    ylab(expression(Density ~ (Fish/100 ~  m^2))) +
-    ggdark::dark_theme_bw()
+    ) |> 
+  ggplot2::ggplot(ggplot2::aes(x = location, y = density_100m2)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::facet_grid(site ~ species_code, scales = "fixed", as.table = TRUE) +
+  ggplot2::theme(legend.position = "none", axis.title.x = ggplot2::element_blank()) +
+  ggplot2::geom_dotplot(binaxis = 'y', stackdir = 'center', dotsize = 1) +
+  ggplot2::ylab(expression(Density ~ (Fish/100 ~  m^2))) +
+  ggplot2::theme_bw()
 
 plot_fish_box_all
 ```
+
+<br>
 
 ## Engineering Design - Phase 3
 
