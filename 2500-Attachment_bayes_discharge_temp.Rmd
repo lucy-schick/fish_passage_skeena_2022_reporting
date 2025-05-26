@@ -2,6 +2,7 @@
 
 #  `r if(gitbook_on){knitr::asis_output("**Attachment 3 - Bayesian analysis to map stream discharge and temperature causal effects pathways**")} else knitr::asis_output("**Attachment 4 - Bayesian analysis to map stream discharge and temperature causal effects pathways**")` {-}
 
-We are working with Poisson Consulting to map stream discharge and temperature causal effects pathways with the intent of focusing aquatic restoration actions in areas of highest potential for positive impacts on fisheries values at https://github.com/poissonconsulting/fish-passage-22
+We are working with Poisson Consulting to map stream discharge and temperature causal effects pathways with the intent of focusing aquatic restoration actions in areas of highest potential for positive impacts on fisheries values. For the most up to date work regarding this project, please see
+https://www.newgraphenvironment.com/fish_passage_skeena_2024_reporting/methods.html.
 
 
