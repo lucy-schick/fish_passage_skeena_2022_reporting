@@ -1,12 +1,12 @@
 pkgs_cran <- c(
   # 'raster', #load this dog before dplyr yo
-  'readwritesqlite',
+  # 'readwritesqlite',
   'sf',
   'readxl',
   'janitor',
   'leafem',
   'leaflet',
-  # 'kableExtra',
+  'kableExtra',
   'httr',
   'RPostgres',
   # 'RPostgreSQL',
@@ -47,7 +47,8 @@ pkgs_gh <- c(#'Envirometrix/plotKML',  #plot kml needed to go ahead of other pac
   'poissonconsulting/poisspatial',
   'poissonconsulting/fwapgr',
   "newgraphenvironment/fpr",
-  "haozhu233/kableExtra@a9c509a" ## 2024 update, this prevents black text in dark mode
+  "lucy-schick/fishbc@updated_data",
+  "poissonconsulting/readwritesqlite" #https://github.com/poissonconsulting/readwritesqlite/issues/47
 )
 
 pkgs_all <- c(pkgs_cran,
