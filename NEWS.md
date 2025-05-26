@@ -1,4 +1,12 @@
-# fish_passage_skeena_2022_reporting v0.1.2 (20240625)
+# fish_passage_skeena_2022_reporting v0.1.3 (2025-05-26)
+
+- update 198217 - Tributary to Skeena River with monitoring data from 2024
+- update 8530 - Sandstone Creek with fish sampling data and aerial imagery from 2024
+- update and remove unused packages 
+- change report to white theme and update figures accordingly
+
+
+# fish_passage_skeena_2022_reporting v0.1.2 (2024-06-25)
 
 - update 198236 - Tributray to Kitwanga River to give estimate of habitat under 8% gradient upstream.
 - add second level TOC on click
@@ -7,7 +15,7 @@
 - move climate change results to end
 
 
-# fish_passage_skeena_2022_reporting v0.1.1 (20240513)
+# fish_passage_skeena_2022_reporting v0.1.1 (2024-0-513)
 
 - Update "Alvin Creek" memo (Tributary to Owen Creek - 197379) to include 2023 sampling attempt and brief detail of Bii Wenii recovery/restoration initiative.  Correct the road km to 29.8. Update fish species list to include all species observed in 2023. Include cost estimate section with estimate of cost updated by hand to align with Marc Dewit's estimate. Add link to newly titled memo in old html document so links to the memo are not broken.
 - Update Sterrit Creek - 198225 with 2023 site visit information (ie. natural barrier at outlet negating value of replacing the structure)
