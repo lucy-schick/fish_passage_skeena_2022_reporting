@@ -33,7 +33,7 @@ knitr::include_graphics("fig/fishpassage_overview.png")
 
 ### Bulkley River
 
-The Bukley River is an 8th order stream that drains an area of 7,762 km^2^ in a generally northerly direction from Bulkley Lake on the Nechako Plateau to its confluence with the Skeena River at Hazleton. It has a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08EE004")$LTMAD,1)` m^3^/s at station 08EE004 located near Quick (\~27km south of Telkwa) and `r round(fasstr::calc_longterm_mean(station_number = "08EE003")$LTMAD,1)` m^3^/s at station 08EE003 located upstream near Houston. Flow patterns at Quick are heavily influenced by inflows from the Morice River (enters just downstream of Houston) resulting in flow patterns typical of high elevation watersheds which receive large amounts of precipitation as snow leading to peak levels of discharge during snowmelt, typically from May to July (Figures \@ref(fig:hydrology-plot) - \@ref(fig:hydrology-stats1)). The hydrograph peaks faster and generally earlier (May - June) for the Bulkley River upstream of Houston where the topography is of lower lower elevation (Figures \@ref(fig:hydrology-plot) and \@ref(fig:hydrology-stats2)).
+The Bukley River is an 8th order stream that drains an area of 7,762 km^2^ in a generally northerly direction from Bulkley Lake on the Nechako Plateau to its confluence with the Skeena River at Hazleton. It has a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08EE004")$LTMAD,1)` m^3^/s at station 08EE004 located near Quick (\~27km south of Telkwa) and `r round(fasstr::calc_longterm_mean(station_number = "08EE003")$LTMAD,1)` m^3^/s at station 08EE003 located upstream near Houston. Flow patterns at Quick are heavily influenced by inflows from the Morice River (enters just downstream of Houston) resulting in flow patterns typical of high elevation watersheds which receive large amounts of precipitation as snow leading to peak levels of discharge during snowmelt, typically from May to July (Figure \@ref(fig:hydrology-quick)). The hydrograph peaks faster and generally earlier (May - June) for the Bulkley River upstream of Houston where the topography is of lower lower elevation (Figure \@ref(fig:hydrology-ub)).
 
 <br>
 
@@ -45,95 +45,116 @@ The valley bottom has seen extensive settlement over the past hundred years with
 
 <br>
 
-```{r hydrology-plot, fig.cap = 'Hydrograph for Bulkley River at Quick (Station #08EE004) and near Houston (Station #08EE003).', fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=T}
-knitr::include_graphics("fig/hydrograph_08EE004.png")
-knitr::include_graphics("fig/pixel.png")
-knitr::include_graphics("fig/hydrograph_08EE003.png")
-```
+```{r hydrology-quick, fig.cap = 'Hydrograph for the Bulkley River at Quick (Station #08EE004). Available mean daily discharge data from 1930 to 2023.', eval=T}
+# get date range for figure caption
+# flow_raw <- tidyhydat::hy_daily_flows("08EE004")
+# print(start_year <- flow_raw$Date %>% min() %>% lubridate::year())
+# print(end_year <- flow_raw$Date %>% max() %>% lubridate::year())
 
-<br>
+plot <- fasstr::plot_longterm_monthly_stats(
+  station_number = "08EE004",
+  ignore_missing = TRUE,
+  add_year = 2022
+)
 
-```{r hydrology-stats1, fig.cap = 'Summary of hydrology statistics for Bulkley River at Quick (Station #08EE004 - daily discharge data from 1930 to 2018).', eval=T}
-knitr::include_graphics("fig/hydrology_stats_08EE004.png")
-```
-
-<br>
-
-```{r hydrology-stats2, fig.cap = 'Summary of hydrology statistics for Bulkley River near Houston (Station #08EE003 - daily discharge data from 1980 to 2018).', eval=T}
-
-knitr::include_graphics("fig/hydrology_stats_08EE003.png")
+print(plot$`Long-term_Monthly_Statistics`)
 
 ```
 
 <br>
 
-```{r hydrology-stats-old, fig.cap = 'Summary of hydrology statistics for Bulkley River at Quick (Station #08EE004) and near Houston (Station #08EE003).', fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=F}
+```{r hydrology-ub, fig.cap = 'Hydrograph for the Bulkley River near Houston, upstream of the Morice River confluence (Station #08EE003). Available mean daily discharge data from 1930 to 2023.', eval=T}
+# get date range for figure caption
+# flow_raw <- tidyhydat::hy_daily_flows("08EE003")
+# print(start_year <- flow_raw$Date %>% min() %>% lubridate::year())
+# print(end_year <- flow_raw$Date %>% max() %>% lubridate::year())
 
-knitr::include_graphics("fig/hydrology_stats_08EE004.png")
-knitr::include_graphics("fig/pixel.png")
-knitr::include_graphics("fig/hydrology_stats_08EE003.png")
+plot <- fasstr::plot_longterm_monthly_stats(
+  station_number = "08EE003",
+  ignore_missing = TRUE,
+  add_year = 2022
+)
+
+print(plot$`Long-term_Monthly_Statistics`)
 
 ```
+
+<br>
+
 
 ### Morice River
 
-The Morice River watershed drains 4,379 km^2^ of Coast Mountains and Interior Plateau in a generally south-eastern direction. The Morice River is an 8th order stream that flows approximatley 80km from Morice Lake to the confluence with the upper Bulkley River just north of Houston. Major tributaries include the Nanika River, the Atna River, Gosnell Creek and the Thautil River. There area numerous large lakes situated on the south side of the watershed including Morice Lake, McBride Lake, Stepp Lake, Nanika Lake, Kid Price Lake, Owen Lake and others. There is one active hydrometric station on the mainstem of the Morice River near the outlet of Morice Lake and one historic station that was located at the mouth of the river near Houston that gathered data in 1971 only [@environmentandclimatechangecanada2021NationalWater]. An estimate of mean annual discharge for the one year of data available for the Morice near it's confluence with the Bulkley River is `r round(fasstr::calc_longterm_mean(station_number = "08ED003")$LTMAD,1)` m^3^/s. Mean annual discharge is estimated at `r round(fasstr::calc_longterm_mean(station_number = "08ED002")$LTMAD,1)` m^3^/s at station 08ED002 located near the outlet of Morice Lake. Flow patterns are typical of high elevation watersheds influenced by coastal weather patterns which receive large amounts of winter precipitation as snow in the winter and large precipitation events in the fall. This leads to peak levels of discharge during snowmelt, typically from May to July with isolated high flows related to rain and rain on snow events common in the fall (Figures \@ref(fig:hydrology-plot2) - \@ref(fig:hydrology-stats3)).
+The Morice River, known to the Wet’suwet’en as Widzin Kwah and meaning river of clear, blue-green waters, flows from its headwaters at Morice Lake (Widzin Bin) northeast to its confluence with the Upper Bulkley River (Neexdzii Kwah) just north of Houston, BC. The river is an 8th order stream that drains 4,379km^2^ of the Coast Mountains and Interior Plateau. Major tributaries include the Nanika, Atna, and Thautil rivers, as well as Gosnell Creek. Numerous large lakes are located in the southern portion of the watershed, including Morice Lake, McBride Lake, Stepp Lake, Nanika Lake, Kid Price Lake, and Owen Lake. One active hydrometric station (08ED002), located near the outlet of Morice Lake, records a mean annual discharge of `r round(fasstr::calc_longterm_mean(station_number = "08ED002")$LTMAD,0)`m^3^/s [@canada2024NationalWater]. Flow patterns are characteristic of high-elevation coastal-influenced watersheds, with peak discharge from snowmelt occurring between May and July, and additional high flows from fall precipitation and rain-on-snow events (Figure \@ref(fig:hydrology-morice)).
 
 <br>
 
-```{r hydrology-plot2, fig.cap = 'Left: Hydrograph for Morice River near Houston (Station #08ED003 - 1971 data only). Right: Hydrograph for Morice River near outlet of Morice Lake (Station #08ED002).', fig.show="hold", out.width= c("49.5%","1%","49.5%"), eval=T}
-knitr::include_graphics("fig/hydrograph_08ED003.png")
-knitr::include_graphics("fig/pixel.png")
-knitr::include_graphics("fig/hydrograph_08ED002.png")
+```{r hydrology-morice, fig.cap = 'Hydrograph for the Morice River near outlet of Morice Lake (Station #08ED002). Available mean daily discharge data from 1961 to 2023.', eval=T}
+# get date range for figure caption
+# flow_raw <- tidyhydat::hy_daily_flows("08ED002")
+# print(start_year <- flow_raw$Date %>% min() %>% lubridate::year())
+# print(end_year <- flow_raw$Date %>% max() %>% lubridate::year())
+
+
+plot1 <- fasstr::plot_longterm_monthly_stats(
+  station_number = "08ED002",
+  ignore_missing = TRUE,
+  add_year = 2022
+)
+
+print(plot1$`Long-term_Monthly_Statistics`)
 ```
 
 <br>
-
-```{r hydrology-stats3, fig.cap = 'Summary of hydrology statistics for Morice River near outlet of Morice Lake (Station #08ED002 - Lat 54.116829 Lon -127.426582). Available daily discharge data from 1961 to 2018.', eval=T}
-
-knitr::include_graphics("fig/hydrology_stats_08ED002.png")
-
-```
 
 ### Zymoetz River
 
-The Zymoetz River (known locally as the Copper River) watershed is an eighth order stream that drains an area of 3,028 km^2^ in a generally westerly direction. It is considered a major tributary of the Skeena River, as it contributes approximately 10% of the flow. The headwater lakes are located approximately 20km southwest of Smithers, and they include Aldrich, Dennis and McDonell Lakes. The upper and lower portions of the watershed are accessed via logging roads off of Highway 16 from Smithers and Terrace, respectively. Access to the middle watershed is difficult due to road wash out. The Zymoetz River flows roughly 120km, starting just west of Hudson Bay mountain near Smithers and ending at the confluence of the Skeena River, approximately 8km north-east of Terrace. Elevations in the watershed range from 120m at the confluence, to 2740m in the Howson Range. The lower end of the Zymoetz watershed has seen a significant reduction in riparian habitat due to fires, forest development practices, pipe line and road construction [@gottesfeld_etal2002ConservingSkeena]. Snowmelt plays a big role in controlling the stream hydrology, with a mean annual discharge estimated at `r round(fasstr::calc_longterm_mean(station_number = "08EF005")$LTMAD,1)` m^3^/s at station 08EF005 located near Smithers. Peak discharge happens in May to early June, which is typical of a high elevation watershed like this (Figures \@ref(fig:hydrology-plot3) - \@ref(fig:hydrology-stats4)).
+The Zymoetz River (known locally as the Copper River) watershed is an eighth order stream that drains an area of 3,028 km^2^ in a generally westerly direction. It is considered a major tributary of the Skeena River, as it contributes approximately 10% of the flow. The headwater lakes are located approximately 20km southwest of Smithers, and they include Aldrich, Dennis and McDonell Lakes. The upper and lower portions of the watershed are accessed via logging roads off of Highway 16 from Smithers and Terrace, respectively. Access to the middle watershed is difficult due to road wash out. The Zymoetz River flows roughly 120km, starting just west of Hudson Bay mountain near Smithers and ending at the confluence of the Skeena River, approximately 8km north-east of Terrace. Elevations in the watershed range from 120m at the confluence, to 2740m in the Howson Range. The lower end of the Zymoetz watershed has seen a significant reduction in riparian habitat due to fires, forest development practices, pipe line and road construction [@gottesfeld_etal2002ConservingSkeena]. Snowmelt plays a big role in controlling the stream hydrology, with a mean annual discharge estimated at `r round(fasstr::calc_longterm_mean(station_number = "08EF005")$LTMAD,1)` m^3^/s at station 08EF005 located near Smithers. Peak discharge happens in May to early June, which is typical of a high elevation watershed like this (Figure \@ref(fig:hydrology-zymoetz)).
 
 <br>
 
-```{r hydrology-plot3, fig.cap = 'Hydrograph for Zymoetz River (Station #08EF005).', fig.show="hold", eval=T}
-knitr::include_graphics("fig/hydrograph_08EF005.png")
-# knitr::include_graphics("fig/pixel.png")
+```{r hydrology-zymoetz, fig.cap = 'Hydrograph for the Zymoetz River above O.K. Creek (Station #08EF005 - Lat 54.49363 Lon -128.32466). Available mean daily discharge data from 1963 to 2022.', fig.show="hold", eval=T}
+# get date range for figure caption
+# flow_raw <- tidyhydat::hy_daily_flows("08EF005")
+# print(start_year <- flow_raw$Date %>% min() %>% lubridate::year())
+# print(end_year <- flow_raw$Date %>% max() %>% lubridate::year())
+
+
+plot1 <- fasstr::plot_longterm_monthly_stats(
+  station_number = "08EF005",
+  ignore_missing = TRUE,
+  add_year = 2022
+)
+
+print(plot1$`Long-term_Monthly_Statistics`)
 
 ```
 
 <br>
-
-```{r hydrology-stats4, fig.cap = 'Summary of hydrology statistics for Zymoetz River (Station #08EF005 - Lat 54.116829 Lon -127.426582). Available daily discharge data from 1997 to 2021.', eval=T}
-
-knitr::include_graphics("fig/hydrology_stats_08EF005.png")
-
-```
 
 ### Kispiox River
 
-The Kispiox River watershed is a seventh order stream that drains an area of 2,088km^2^ in a south east direction. It is a large tributary of the Skeena River, contributing approximately 9% of its flow. It flows 140km to the confluence of the Skeena River, near Kispiox Village. Elevations in the watershed range from 200m at the mouth to as high as 2090m on Kispiox Mountain. The mainstream of the Kispiox is fed mainly by glacier melt and high elevation snow melt. Swan and Stephens Lakes (located in the upper watershed) are important sockeye systems. Swan Lake drains via Club Lake into Stephens Lake which in turn flows via Stephens Creek into the mainstem of the Kispiox River. Some of the biggest threats to aquatic ecosystems in the Kispiox valley are reported as erosion, obstructions, sedimentation, and altered water yield. The upper third of the Kispiox watershed (upstream of the Nangeese River) is well protected from development by the Swan Lake Kispiox River Provincial Park and because it contains few roads with little forestry development [@gottesfeld_etal2002ConservingSkeena]. The Kispiox River has a mean annual discharge estimated at `r round(fasstr::calc_longterm_mean(station_number = "08EB004")$LTMAD,1)` m^3^/s at station 08EB004 located near Hazelton. Peak discharge happens in May and June as a result of the spring snowmelt (Figures \@ref(fig:hydrology-plot4) - \@ref(fig:hydrology-stats5)).
+The Kispiox River watershed is a seventh order stream that drains an area of 2,088km^2^ in a south east direction. It is a large tributary of the Skeena River, contributing approximately 9% of its flow. It flows 140km to the confluence of the Skeena River, near Kispiox Village. Elevations in the watershed range from 200m at the mouth to as high as 2090m on Kispiox Mountain. The mainstream of the Kispiox is fed mainly by glacier melt and high elevation snow melt. Swan and Stephens Lakes (located in the upper watershed) are important sockeye systems. Swan Lake drains via Club Lake into Stephens Lake which in turn flows via Stephens Creek into the mainstem of the Kispiox River. Some of the biggest threats to aquatic ecosystems in the Kispiox valley are reported as erosion, obstructions, sedimentation, and altered water yield. The upper third of the Kispiox watershed (upstream of the Nangeese River) is well protected from development by the Swan Lake Kispiox River Provincial Park and because it contains few roads with little forestry development [@gottesfeld_etal2002ConservingSkeena]. The Kispiox River has a mean annual discharge estimated at `r round(fasstr::calc_longterm_mean(station_number = "08EB004")$LTMAD,1)` m^3^/s at station 08EB004 located near Hazelton. Peak discharge happens in May and June as a result of the spring snowmelt (Figure \@ref(fig:hydrology-kispiox)).
 
 <br>
 
-```{r hydrology-plot4, fig.cap = 'Hydrograph for Kispiox River near Hazelton (Station #08EB004).', fig.show="hold", eval=T}
-knitr::include_graphics("fig/hydrograph_08EB004.png")
-# knitr::include_graphics("fig/pixel.png")
+```{r hydrology-kispiox, fig.cap = 'Hydrograph for the Kispiox River near Hazelton (Station #08EB004 - Lat 55.43385 Lon -127.71616). Available mean daily discharge data from 1963 to 2024.', fig.show="hold", eval=T}
 
+# get date range for figure caption
+# flow_raw <- tidyhydat::hy_daily_flows("08EB004")
+# print(start_year <- flow_raw$Date %>% min() %>% lubridate::year())
+# print(end_year <- flow_raw$Date %>% max() %>% lubridate::year())
+
+
+plot1 <- fasstr::plot_longterm_monthly_stats(
+  station_number = "08EB004",
+  ignore_missing = TRUE,
+  add_year = 2022
+)
+
+print(plot1$`Long-term_Monthly_Statistics`)
 ```
 
 <br>
-
-```{r hydrology-stats5, fig.cap = 'Summary of hydrology statistics for Kispiox River near Hazelton (Station #08EB004). Available daily discharge data from 1963 to 2021.', eval=T}
-
-knitr::include_graphics("fig/hydrology_stats_08EB004.png")
-
-```
 
 ## Fisheries
 
@@ -228,45 +249,44 @@ fiss_species_table %>%
 <br>
 
 ```{r fish-gantt-morice, fig.cap = 'Gantt chart for select species in the Morice River and Bulkley River watersheds.  To be updated in consultation with local fisheries techicians and knowledge holders.', eval=T}
-gantt_raw <- read_csv("data/inputs_raw/fish_species_life_history_gantt.csv")
 
+# This include ONLY the Morice data
+gantt_raw <- readr::read_csv("data/inputs_raw/fish_species_life_history_gantt.csv")
 
-##start with just the morice to keep it simple
-# ungroup()
-##start with just the morice to keep it simple
-gantt <- gantt_raw %>%
-  select(Species,
-         life_stage,
-         morice_start2,
-         morice_end2) %>%
-  filter(
+## start with just the morice to keep it simple
+gantt <- gantt_raw |>
+  dplyr::select(Species, life_stage, morice_start2, morice_end2) |>
+  dplyr::filter(
     life_stage != 'Rearing' &
       life_stage != 'Upstream fry migration' &
       !is.na(life_stage),
     !is.na(morice_start2)
-  )%>%
-  mutate(
+  ) |>
+  dplyr::mutate(
     morice_start2 = lubridate::as_date(morice_start2),
     morice_end2 = lubridate::as_date(morice_end2),
-    life_stage = factor(life_stage, levels =
-                          c('Migration', 'Overwintering', 'Spawning', 'Incubation', 'Emergence', 'Outmigration')),
-    life_stage = forcats::fct_rev(life_stage) ##last line was upside down!
-  ) %>%
-  filter(life_stage != 'Overwintering')
+    life_stage = base::factor(
+      life_stage,
+      levels = c('Migration', 'Overwintering', 'Spawning', 'Incubation', 'Emergence', 'Outmigration')
+    ),
+    life_stage = forcats::fct_rev(life_stage)
+  ) |>
+  dplyr::filter(life_stage != 'Overwintering') |>
+  dplyr::filter(Species != 'Pacific Lamprey')
 
-
-##make a plot
-ggplot(gantt, aes(xmin = morice_start2,
-                  xmax = morice_end2,
-                  y = life_stage,
-                  color = life_stage)) +
-  geom_linerange(size = 2) +
-  labs(x=NULL, y=NULL)+
-  # theme_bw()+
-  ggdark::dark_theme_bw(base_size = 11)+
-  theme(legend.position = "none")+
-  scale_x_date(date_labels = "%B")+
-  facet_wrap(~Species, ncol = 1)
+## make a plot
+ggplot2::ggplot(gantt, ggplot2::aes(
+  xmin = morice_start2,
+  xmax = morice_end2,
+  y = life_stage,
+  color = life_stage
+)) +
+  ggplot2::geom_linerange(size = 2) +
+  ggplot2::labs(x = NULL, y = NULL) +
+  ggplot2::theme_bw(base_size = 11) +
+  ggplot2::theme(legend.position = "none") +
+  ggplot2::scale_x_date(date_labels = "%B") +
+  ggplot2::facet_wrap(~Species, ncol = 1)
 ```
 
 <br>
@@ -281,14 +301,15 @@ fiss_sum_width <- readr::read_csv(file = paste0(getwd(), '/data/inputs_extracted
 ```
 
 ```{r fish-plot-grad, out.width = photo_width, fig.cap= 'Summary of historic salmonid observations vs. stream gradient category for the Bulkley River watershed group.', eval=T}
+
 ##bar graph
 plot_grad <- fiss_sum_grad %>% 
-  filter(gradient_id != 99) %>% 
-  ggplot(aes(x = Gradient, y = Percent)) +
-  geom_bar(stat = "identity")+
-  facet_wrap(~species_code, ncol = 2)+
-  ggdark::dark_theme_bw(base_size = 11)+
-  labs(x = "Average Stream Gradient", y = "Occurrences (%)")
+  dplyr::filter(gradient_id != 99) %>% 
+  ggplot2::ggplot(ggplot2::aes(x = Gradient, y = Percent)) +
+  ggplot2::geom_bar(stat = "identity")+
+  ggplot2::facet_wrap(~species_code, ncol = 2)+
+  ggplot2::theme_bw(base_size = 11)+
+  ggplot2::labs(x = "Average Stream Gradient", y = "Occurrences (%)")
 plot_grad
 
 ```
@@ -298,12 +319,12 @@ plot_grad
 ```{r fish-plot-width, out.width = photo_width, fig.cap= 'Summary of historic salmonid observations vs. channel width category for the Bulkley River watershed group.', eval=T}
 ##bar graph
 plot_width <- fiss_sum_width %>% 
-  filter(!is.na(width_id)) %>%
-  ggplot(aes(x = Width, y = Percent)) +
-  geom_bar(stat = "identity")+
-  facet_wrap(~species_code, ncol = 2)+
-  ggdark::dark_theme_bw(base_size = 11)+
-  labs(x = "Channel Width", y = "Occurrences (%)")
+  dplyr::filter(!is.na(width_id)) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Width, y = Percent)) +
+  ggplot2::geom_bar(stat = "identity")+
+  ggplot2::facet_wrap(~species_code, ncol = 2)+
+  ggplot2::theme_bw(base_size = 11)+
+  ggplot2::labs(x = "Channel Width", y = "Occurrences (%)")
 plot_width
 ```
 
