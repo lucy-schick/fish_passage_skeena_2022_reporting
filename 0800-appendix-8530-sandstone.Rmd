@@ -88,7 +88,8 @@ provided in map attachment
 <br>
 
 ```{r tab-culvert-bcfp-8530, eval = T}
-fpr::fpr_table_bcfp(scroll = gitbook_on) 
+#use updated 2025 modelling with has the correct 5.7km of st_rearing habitat mentioned in the background section
+fpr::fpr_table_bcfp(dat = bcfishpass_2025, scroll = gitbook_on) 
 ```
 
 <br>

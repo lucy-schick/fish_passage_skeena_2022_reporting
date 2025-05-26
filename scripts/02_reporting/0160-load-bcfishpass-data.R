@@ -277,3 +277,34 @@ rws_write(bcfishpass_spawn_rear_model, exists = F, delete = TRUE,
           conn = conn, x_name = "bcfishpass_spawn_rear_model")
 rws_list_tables(conn)
 readwritesqlite::rws_disconnect(conn)
+
+
+# Re-loaded the bcfishpass object in 2024 - used the updated code from 2024 reports
+# lots of text in the memos is written/based off the of the bcfishpass modelling from 2022 and i dont think we want to go
+# updating every memo with the 2025 modelling so only certain memos use the bcfishpass_2025 object, where I think its important that the modelling is updated
+
+# name the watershed groups in our study area
+wsg <- c('BULK', 'MORR', 'ZYMO', 'KISP', 'KLUM')
+
+# this object should be called bcfishpass_crossings_vw or something that better reflects what it is
+bcfishpass_2025 <- fpr::fpr_db_query(
+  glue::glue(
+    "SELECT * from bcfishpass.crossings_vw
+  WHERE watershed_group_code IN (
+  {glue::glue_collapse(glue::single_quote(wsg), sep = ', ')}
+  );"
+  )
+) |>
+  sf::st_drop_geometry()
+
+
+# add to sqlite as bcfishpass_2024
+conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
+readwritesqlite::rws_list_tables(conn)
+
+#add the new bcfishpass_2024 table
+readwritesqlite::rws_drop_table("bcfishpass_2025", conn = conn) ##now drop the table so you can replace it
+readwritesqlite::rws_write(bcfishpass_2025, exists = F, delete = TRUE,
+                           conn = conn, x_name = "bcfishpass_2025")
+
+readwritesqlite::rws_disconnect(conn)

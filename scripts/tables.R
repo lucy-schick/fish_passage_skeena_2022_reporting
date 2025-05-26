@@ -43,8 +43,13 @@ bcfishpass_phase2 <- readwritesqlite::rws_read_table("bcfishpass", conn = conn) 
            (pscis_phase2 %>%
               pull(pscis_crossing_id))) %>%
   dplyr::filter(!is.na(stream_crossing_id))
+
 bcfishpass <- readwritesqlite::rws_read_table("bcfishpass", conn = conn) %>%
   mutate(ch_cm_co_pk_sk_network_km = round(ch_cm_co_pk_sk_network_km,2))
+
+#load bcfishpass_2025 object - bcfishpass modelling updated in 2025
+bcfishpass_2025 <- readwritesqlite::rws_read_table("bcfishpass_2025", conn = conn)
+
 # bcfishpass_archive <- readwritesqlite::rws_read_table("bcfishpass_archive_2022-03-02-1403", conn = conn)
 bcfishpass_column_comments <- readwritesqlite::rws_read_table("bcfishpass_column_comments", conn = conn)
 # bcfishpass_archived <- readwritesqlite::rws_read_table("bcfishpass_morr_bulk_archive", conn = conn) %>%
