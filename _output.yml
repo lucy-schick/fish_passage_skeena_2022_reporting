@@ -10,7 +10,7 @@ bookdown::gitbook:
       collapse: section
     download: ["Skeena2022.pdf", "Skeena2022.html"]
     fontsettings:
-      theme: night
+      theme: white
       family: sans
 pagedown::html_paged:
   front_cover: "fig/logo_newgraph/BLACK/PNG/nge-full_black.png"
