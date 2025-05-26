@@ -26,6 +26,7 @@ output:
 params:
  repo_url: 'https://github.com/NewGraphEnvironment/fish_passage_skeena_2022_reporting/'
  update_packages: FALSE
+ gis_project_name: "sern_skeena_2023"
 nocite: |
   @busch_etal2013LandscapeLevelModel, 
   @woll_etal2017SalmonEcological,
