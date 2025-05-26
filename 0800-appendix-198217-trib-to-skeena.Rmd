@@ -41,6 +41,10 @@ At crossing `r as.character(my_site)`, `r fpr::fpr_my_pscis_info()` is a `r fpr:
 
 <br>
 
+Engineering designs were completed in 2023 for PSCIS crossing `r as.character(my_site2)`, and in preparation for construction, baseline assessment work was carried out in summer 2023. This included fish sampling and PIT tagging to support long-term effectiveness monitoring by enabling future tracking of fish movement and condition. High-resolution imagery was collected, and LiDAR data was acquired to support morphological analysis and post-construction assessment. The crossing was replaced in summer 2024, and crews revisited the site in fall 2024 to conduct follow-up effectiveness monitoring. This memo has been updated to incorporate the 2023 and 2024 field work.
+
+<br>
+
 ```{r tab-wshd-198217, eval = T}
 fpr::fpr_table_wshd_sum(site_id = my_site) %>% 
   fpr::fpr_kable(caption_text = paste0('Summary of derived upstream watershed statistics for PSCIS crossing ', my_site, '.'),
@@ -69,7 +73,7 @@ knitr::include_graphics("fig/lidar_198217_sik-e-dakh.png")
 
 <br>
 
-## Climate Change Risk Assessment
+## Climate Change Risk Assessment {.unnumbered}
 
 Preliminary climate change risk assessment data for PSCIS site 198217 on  `r fpr_my_pscis_info(site = my_site2, col_pull = road_name)` is presented in Tables \@ref(tab:tab-moti-198217) - \@ref(tab:tab-moti-198217-comments).
 
@@ -85,13 +89,13 @@ fpr_table_moti_comments()
 
 ## Stream Characteristics at Crossings {.unnumbered}
 
-PSCIS crossing `r as.character(my_site)` was embedded, backwatered and ranked as `r fpr::fpr_my_pscis_info(col_pull = barrier_result)`
+In 2022, PSCIS crossing `r as.character(my_site)` was embedded, backwatered and ranked as `r fpr::fpr_my_pscis_info(col_pull = barrier_result)`
 to upstream fish passage (Table \@ref(tab:tab-culvert-198216)). There were two culverts side by side, and both of them had trash racks on the
 inlet side that could be a barrier to adult coho. The trash rack had grid sizes of approximately 13cm by 13cm.
 
 <br>
 
-At the time of the survey, PSCIS crossing `r as.character(my_site2)` was comprised of two pipes.  The outlet drops were measured as 0.6m with both pipes un-embedded and non-backwatered.  The crossing ranked as a `r fpr::fpr_my_pscis_info(site = my_site2, col_pull = barrier_result) %>% stringr::str_to_lower()` to upstream fish passage according to the provincial protocol [@moe2011Fieldassessment] (Table \@ref(tab:tab-culvert-198217)). Water temperature was
+At the time of the 2022 survey, PSCIS crossing `r as.character(my_site2)` was comprised of two pipes.  The outlet drops were measured as 0.6m with both pipes un-embedded and non-backwatered.  The crossing ranked as a `r fpr::fpr_my_pscis_info(site = my_site2, col_pull = barrier_result) %>% stringr::str_to_lower()` to upstream fish passage according to the provincial protocol [@moe2011Fieldassessment] (Table \@ref(tab:tab-culvert-198217)). Water temperature was
 `r fpr::fpr_my_habitat_info(sit = my_site2, loc = "ds", col_pull = 'temperature_c')`$^\circ$C, pH was `r fpr::fpr_my_habitat_info(sit = my_site2, loc = "ds", col_pull = 'p_h')` and conductivity was `r fpr::fpr_my_habitat_info(sit = my_site2, loc = "ds", col_pull = 'conductivity_m_s_cm')`uS/cm.
 
 
@@ -226,15 +230,52 @@ In 2023, crossing `r as.character(my_site2)` was revisited and electrofishing wa
 
 <br>
 
+## Monitoring {.unnumbered}
+
+In 2024, crews revisited PSCIS crossing `r as.character(my_site2)` following the bridge replacement to conduct effectiveness monitoring, with results summarised in Table \@ref(tab:tab-monitoring-198217). The bridge installation was excellent, featuring thoughtful erosion control and re-vegetation measures, including buried riprap (Figure \@ref(fig:photo-198217-09)). The channel was wide and well-designed, the structure appeared stable, and minimal riprap was used. Gitksan Watershed Authority was also planning to collaborate with Seed the North to plant culturally important species including huckleberry, soapberry, and raspberry. Overall, the site was considered a successful and well-executed installation and should be used as an example for future replacements. The crossing reassessment can be found in Appendix - Phase 1 Fish Passage Assessment Data and Photos of the [2024 report](https://www.newgraphenvironment.com/fish_passage_skeena_2024_reporting/).
+
+<br>
+
+```{r tab-monitoring-198217}
+tab_monitoring |> 
+  dplyr::filter(`Pscis Crossing Id` == my_site2) |> 
+  dplyr::mutate(across(everything(), as.character)) |> 
+  tidyr::pivot_longer(
+    cols = everything(),  # Select all columns
+    names_to = "Parameter",  # Column names become values in this column
+    values_to = "Description"  # Data values go into this column
+  ) |> 
+  # remove "notes" from Parameter column
+  dplyr::mutate(Parameter = stringr::str_replace_all(Parameter, " Notes", "")) |>
+  fpr::fpr_kable(caption_text = paste0('Summary of monitoring metric results for site ', my_site2, '.'),
+                                       scroll = gitbook_on)
+```
+
+<br>
+
+```{r photo-198217-09-prep}
+my_photo1 = fpr::fpr_photo_pull_by_str(site = my_site2, str_to_pull = 'crossing_all_2024')
+
+my_caption1 = paste0('PSCIS crossing ',  my_site2, ' after the bridge replacement in summer 2024. From top left clockwise: Road/Site Card, Barrel, Outlet, Downstream, Upstream, Inlet. ')
+
+```
+
+```{r photo-198217-09, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+knitr::include_graphics(my_photo1)
+```
+
+<br>
+
 ## Structure Remediation and Cost Estimate {.unnumbered}
 
-Although replacement of PSCIS crossing `r as.character(my_site2)` with a bridge (`r fpr::fpr_my_pscis_info(site = my_site2, col_pull = recommended_diameter_or_span_meters)`m span with a cost estimated at \$375,000) is tentatively recommended. However,as alternative options may provide greater restoration actions (ex. relocation of the crossing structure), conditions within the greater watershed should be assessed more comprehensively first to determine how the channel alignment and wetland configuration/capacity (between Water Tower Road and the Skeena River) have been impacted by the installation of roads and Sik-E-Dakh community infrastructure.
+An engineering design was completed for PSCIS crossing `r as.character(my_site2)` in 2023 by Onsite Engineering with funding provided through SERNbc. In the summer of 2024 the crossing was replaced with a bridge, led by the Gitksan Watershed Authorities. 
 
 <br>
 
 ## Conclusion and Recommendations {.unnumbered}
 
-There was more than `r fpr::fpr_my_priority_info(sit = my_site2, col_pull= upstream_habitat_length_km)`km of habitat modelled upstream of crossing `r as.character(my_site2)` with gradients less than 10%.  Habitat within areas surveyed rated as `r fpr::fpr_my_priority_info(sit = my_site2, loc = 'us', col_pull = hab_value)` value for coho rearing and spawning. At the time of 2024 reporting, in collaboration with the local Sik-E-Dakh community, a plan to gather local knowledge, provide educational opportunities for local community members and eventually rehabilitate this system was underway - led by the Gitksan Watershed Authorities. Additionally, in 2023 Gitskan Watershed Authorities acquired Salmon Restoration and Innovation Fund dollars to facilitate the physical works to replace the crossings on `r fpr_my_pscis_info(site = my_site2, col_pull = road_name)`. An engineering design was completed for this site in 2023 by Onsite Engineering with funding provided through SERNbc and replacement of the crossing is scheduled for the summer of 2024.
+There was more than `r fpr::fpr_my_priority_info(sit = my_site2, col_pull = upstream_habitat_length_km)`km of habitat modelled upstream of crossing `r as.character(my_site2)`, with gradients less than 10%. Habitat within surveyed areas was rated as `r fpr::fpr_my_priority_info(sit = my_site2, loc = 'us', col_pull = hab_value)` value for coho rearing and spawning. As of 2024, in collaboration with the local Sik-E-Dakh community, a plan led by the Gitksan Watershed Authorities was underway to gather local knowledge, provide educational opportunities for community members, and ultimately rehabilitate the system. Additionally, in 2023, Gitksan Watershed Authorities secured Salmon Restoration and Innovation Fund (SRIF) funding to support the replacement of the crossings on `r fpr_my_pscis_info(site = my_site2, col_pull = road_name)`. An engineering design for the site was completed in 2023 and the crossing was successfully replaced with a bridge in the summer of 2024. The high-quality implementation, post-construction restoration, and teamwork by multiple groups make this crossing replacement an excellent example that should be used to guide future restoration projects.
+
 
 <br>
 
