@@ -260,7 +260,7 @@ my_caption1 = paste0('PSCIS crossing ',  my_site2, ' after the bridge replacemen
 
 ```
 
-```{r photo-198217-09, fig.cap= my_caption1, out.width = photo_width, eval=gitbook_on}
+```{r photo-198217-09, fig.cap= my_caption1, out.width = photo_width, eval=T}
 knitr::include_graphics(my_photo1)
 ```
 
