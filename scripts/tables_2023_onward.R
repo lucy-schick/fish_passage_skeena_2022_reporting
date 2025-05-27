@@ -333,8 +333,6 @@ readwritesqlite::rws_disconnect(conn)
 # Only run first time or if we have updated the form
 # This is needed to build the `tab_fish_sites_sum` object for `fpr_table_fish_site()`
 
-# gis_project_name <- "sern_skeena_2023"
-#
 # path_form_fiss_site_2024 <- fs::path_expand(fs::path("~/Projects/gis/", params$gis_project_name, "/data_field/2024/form_fiss_site_2024.gpkg"))
 #
 #
@@ -352,22 +350,6 @@ readwritesqlite::rws_disconnect(conn)
 #     sf::st_drop_geometry()
 #
 #
-#   # Peace 2024 - times in `form_fiss_site_2024_raw` are wrong in R and Q!
-#   #
-#   # We need to fix the times because they are in UTC and we need them in PDT. This issue is documented here https://github.com/NewGraphEnvironment/fish_passage_template_reporting/issues/18
-#   form_fiss_site_2024_clean_times <- form_fiss_site_2024|>
-#     # make a new column for the time as is with different name then mutate to PST
-#     # we don't need the new column but will leave here for now so we can visualize and confirm the time is correct
-#     dplyr::mutate(date_time_start_raw = date_time_start,
-#                   date_time_start = lubridate::force_tz(date_time_start_raw, tzone = "America/Vancouver"),
-#                   date_time_start = lubridate::with_tz(date_time_start, tzone = "UTC")) |>
-#     dplyr::relocate(date_time_start_raw, .after = date_time_start)
-#
-#   ## Double check the time is correct and now remove the date_time_start_raw column
-#   form_fiss_site_2024 <- form_fiss_site_2024_clean_times |>
-#     select(-date_time_start_raw)
-#
-#
 #   # Now burn to the sqlite
 #   conn <- readwritesqlite::rws_connect("data/bcfishpass.sqlite")
 #   # won't run on first build if the table doesn't exist
@@ -375,8 +357,6 @@ readwritesqlite::rws_disconnect(conn)
 #   readwritesqlite::rws_write(form_fiss_site_2024, exists = F, delete = TRUE,
 #                              conn = conn, x_name = "form_fiss_site_2024")
 #   readwritesqlite::rws_disconnect(conn)
-#   # remove the object to avoid issues if something breaks
-#   rm(form_fiss_site_2024_clean_times)
 
 
 ## Load 2024 fish data--------------------------
